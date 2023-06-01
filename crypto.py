@@ -1,4 +1,3 @@
-import jwt
 import analyzer
 import visual
 import sys
@@ -6,7 +5,12 @@ import subprocess
 import hmac
 import hashlib
 import modifier
-import base64
+
+try :
+    import jwt
+except Exception as e:
+    print(visual.error("You need to install PyJWT module with 'pip install PyJWT' : " + str(e)))
+    sys.exit()
 
 class CustomException(Exception):
     pass

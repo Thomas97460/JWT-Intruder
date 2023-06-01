@@ -7,7 +7,7 @@ try :
 except Exception as e :
     print(visual.error("You need to install requests module with 'pip install requests' : " + str(e)))
     sys.exit()
-    
+
 def get_headers_dict(args) :
     try :
         with open(args.headers, "r") as file :
@@ -84,15 +84,15 @@ def analyze_response(args, response, to_dump) :
                 with open(args.output, "a") as file :
                     file.write(to_dump)
             except Exception as e :
-                print(visual.error(str(e)))
+                print(visual.error("openning output : " + str(e)))
                 sys.exit()
-    else :
+    elif args.output is not None :
         to_dump = dump_response(response, retour_dump, to_dump)
         try : 
             with open(args.output, "a") as file :
                 file.write(to_dump)
         except Exception as e :
-            print(visual.error(str(e)))
+            print(visual.error("openning output : " + str(e)))
             sys.exit()
     print(retour)
     return
