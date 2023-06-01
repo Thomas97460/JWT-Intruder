@@ -80,6 +80,7 @@ def analyze_response(args, response, to_dump) :
                     file.write(to_dump)
             except Exception as e :
                 print(visual.error(str(e)))
+                sys.exit()
     else :
         to_dump = dump_response(response, retour_dump, to_dump)
         try : 
@@ -87,6 +88,7 @@ def analyze_response(args, response, to_dump) :
                 file.write(to_dump)
         except Exception as e :
             print(visual.error(str(e)))
+            sys.exit()
     print(retour)
     return
 
