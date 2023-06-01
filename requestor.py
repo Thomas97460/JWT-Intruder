@@ -1,8 +1,13 @@
-import requests
 import visual
 import sys
 import json
 
+try :
+    import requests
+except Exception as e :
+    print(visual.error("You need to install requests module with 'pip install requests' : " + str(e)))
+    sys.exit()
+    
 def get_headers_dict(args) :
     try :
         with open(args.headers, "r") as file :

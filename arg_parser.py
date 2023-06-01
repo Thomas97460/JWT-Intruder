@@ -81,6 +81,8 @@ def get_args() :
         parser.error("Alg injection need at least a -output OUTPUT parameter or a -u URL parameter")
     elif args.alg_injection is True and args.wordlist is None :
         parser.error("Alg injection need a -wordlist WORDLIST.txt parameter to perform the injection")
+    elif args.blank is True and args.url is None and args.output is not None :
+        parser.error("Blank attack can't take an -out output.txt argument without a url parameter")
     return args
 
 
