@@ -1,6 +1,7 @@
 # JWT-Intruder
 
 JWT-Intruder is a Json Web Token construction, analysis and penetration tool coded in Python.
+For now, only HS256/512 and RS256/512 algorithms are supported.
 
 ## Installation
 ```bash
@@ -17,33 +18,65 @@ python3 main.py -t eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.J
 ```
 ### Bruteforce (Hashcat)
 ```bash
-python3 main.py -t eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.QmddAIr_BZdQ7nUryc5KsZzq8TLod1YKTGFg_xte47o -f -w wordlist.txt
+python3 main.py -f -w wordlist.txt \
+-t eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.QmddAIr_BZdQ7nUryc5KsZzq8TLod1YKTGFg_xte47o 
 ```
 ### None Algorithm
+#### Local
 ```bash
-
+python3 main.py -n -t \
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.QmddAIr_BZdQ7nUryc5KsZzq8TLod1YKTGFg_xte47o
 ```
-
-### Kid Injection
+#### Attack with url
 ```bash
-
+python3 main.py -n -t -find '["google"]' -u https://google.com \
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.QmddAIr_BZdQ7nUryc5KsZzq8TLod1YKTGFg_xte47o
+```
+### Kid Injection
+#### Local
+```bash
+python3 main.py -k -w inject.txt -out output.txt -sk sec_key.txt -t \
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.QmddAIr_BZdQ7nUryc5KsZzq8TLod1YKTGFg_xte47o
+```
+#### Attack with url
+```bash
+python3 main.py -k -w inject.txt -u https://google.com -sk sec_key.txt -t \
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.QmddAIr_BZdQ7nUryc5KsZzq8TLod1YKTGFg_xte47o
 ```
 
 ### Alg Injection
+#### Local
 ```bash
-
+python3 main.py -alg -out out.txt -w inject.txt -t \
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.QmddAIr_BZdQ7nUryc5KsZzq8TLod1YKTGFg_xte47o
 ```
-
+#### Attack with url
+```bash
+python3 main.py -alg -w inject.txt -u https://google.com -t\
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.QmddAIr_BZdQ7nUryc5KsZzq8TLod1YKTGFg_xte47o
+```
 ### Mismatch Algorithm
 ```bash
-
+python3 main.py -ms -p pub_key.txt -t \
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.F7TSgnhXiCKuaveFaQMjJv4nkeW8sDU-7m-3zhAVanxYN8ZR0raPYcSqr1tb3i84_7vd7ZY2rFDhjgRELATjSzJPzf6Rf5Q_g0ljMZpIL1xrFdhqkVwC8-VcIB3M-oovS_8Ys1w75H2K9v9KPHoL0z_nvEhkrv8MG17_mSzz9eA
+```
+#### Attack with url
+```bash
+python3 main.py -ms -p pub_key.txt -u https://google.com -t \
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.F7TSgnhXiCKuaveFaQMjJv4nkeW8sDU-7m-3zhAVanxYN8ZR0raPYcSqr1tb3i84_7vd7ZY2rFDhjgRELATjSzJPzf6Rf5Q_g0ljMZpIL1xrFdhqkVwC8-VcIB3M-oovS_8Ys1w75H2K9v9KPHoL0z_nvEhkrv8MG17_mSzz9eA
 ```
 
 ### Blank Password
+#### Local
 ```bash
-
+python3 main.py -b -t \
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.Mj1JXmT8qYRC1hNw-1BPEZELQSwYNefFCYPTYzZcqLU
 ```
-
+#### Attack with url 
+```bash
+python3 main.py -b -u https://google.com -t \
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4ifQ.Mj1JXmT8qYRC1hNw-1BPEZELQSwYNefFCYPTYzZcqLU
+```
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
