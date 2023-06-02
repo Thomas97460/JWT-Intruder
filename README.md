@@ -5,6 +5,12 @@ For now, only HS256/512 and RS256/512 algorithms are supported.
 
 ## Installation
 ```bash
+pip3 install requests
+```
+```bash
+pip3 install PyJWT
+```
+```bash
 git clone https://github.com/Thomas97460/JWT-Intruder.git
 ```
 ## Usage
@@ -16,7 +22,13 @@ You can add ```-u https://yourtarget.com``` in order to send the token to your t
 The ```-find``` parameter is used to locate character strings in the server's response. The parameter expects a list in json format : ```-find '["flag","password","admin"]'```.
 
 #### https headers optional fields
+```-headers '{"field1":"data1","field2":"data2"}'``` additionals http headers
+ 
+```-cookies '{"cookie1":"data1","cookie2":"data2"}'```
 
+```-data '{"key1":"data1","key2":"data2"}'``` for post requests
+#### output parameter
+```-out output.txt``` Used with ```-u``` parameter, will write server response to output.txt
 
 - ### Construction
 ```bash
